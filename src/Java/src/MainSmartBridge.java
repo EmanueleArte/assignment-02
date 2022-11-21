@@ -4,22 +4,13 @@ import jssc.SerialPortList;
 
 public class MainSmartBridge {
     public static void main(String[] args) throws Exception {
-        SmartBridgeView gui = new SwingGui();
-        gui.start();
-        if (args.length == 0) {
-            CommChannel channel = new SerialCommChannel(args[0],9600);
+        System.out.println(">>> If the program doesn't work or you want to connect to a specific port, pass it as argument.");
+        final SmartBridgeView gui = new SwingGui();
+        if (args.length == 1) {
+            final SmartBridgeController controller = new SmartBridgeControllerImpl(gui, args[0]);
         } else {
-            String[] portNames = SerialPortList.getPortNames();
-            // try to open the serial port automatically
-            CommChannel channel = new SerialCommChannel(Stream.of(portNames).filter(p -> p.contains("cu.usb") || p.contains("COM3"))
-            .findFirst().get(), 9600);
-            // CommChannel channel = new SerialCommChannel("/dev/cu.usbmodem1411",9600);	
-            // CommChannel channel = new SerialCommChannel("/dev/cu.isi00-DevB",9600);	
             
-            /* attesa necessaria per fare in modo che Arduino completi il reboot */
-            System.out.println("Waiting Arduino for rebooting...");		
-            Thread.sleep(4000);
-            System.out.println("Ready.");		
+            	
 
             while (true){
                 System.out.println("Sending ping");
@@ -27,7 +18,9 @@ public class MainSmartBridge {
                 String msg = channel.receiveMsg();
                 System.out.println("Received: "+msg);		
                 Thread.sleep(500);
-            }
+            }*/
+            final SmartBridgeController controller = new SmartBridgeControllerImpl(gui, "");
         }
+        gui.start();
     }
 }

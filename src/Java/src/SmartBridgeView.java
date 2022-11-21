@@ -9,7 +9,7 @@ public interface SmartBridgeView {
     void start();
 
     /**
-     * Set the smart light state.
+     * Set the smart light state text.
      * 
      * @param state the state
      */
@@ -33,7 +33,7 @@ public interface SmartBridgeView {
     void updateWaterTrend(String trend);
 
     /**
-     * Set the situation.
+     * Set the situation text.
      * 
      * @param situation the situation
      */
@@ -45,4 +45,11 @@ public interface SmartBridgeView {
      * @param controller the smart bridge controller
      */
     void setController(SmartBridgeController controller);
+
+    /**
+     * Set the program state label text.
+     * 
+     * @param state the program state
+     */
+    void setProgramState(String state);
 }

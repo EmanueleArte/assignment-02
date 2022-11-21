@@ -5,9 +5,9 @@ public class SmartBridgeControllerImpl implements SmartBridgeController {
     private final SmartBridgeView view;
     private final SmartBridgeModel model;
     
-    public SmartBridgeControllerImpl(SmartBridgeView view) {
+    public SmartBridgeControllerImpl(final SmartBridgeView view, final String port) {
         this.view = view;
-        model = new SmartBridgeModelImpl();
+        model = new SmartBridgeModelImpl(this, port);
     }
     
     @Override
@@ -34,6 +34,11 @@ public class SmartBridgeControllerImpl implements SmartBridgeController {
     public void setWaterTrendPoint(String trend) {
         // TODO Auto-generated method stub
         
+    }
+
+    @Override
+    public void setProgramState(final String state) {
+        view.setProgramState(state);
     }
     
 }

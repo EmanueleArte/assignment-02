@@ -15,6 +15,7 @@ public class SwingGui extends JFrame implements SmartBridgeView {
     private final JTextField situationTextField;
     private final JSlider valveOpeningSlider;
     private final JLabel valveLabel;
+    private final JLabel programState;
     private SmartBridgeController controller;
 
     public SwingGui() {
@@ -25,6 +26,8 @@ public class SwingGui extends JFrame implements SmartBridgeView {
         Container pane = frame.getContentPane();
         pane.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
+
+        programState = new JLabel("Program state: ");
 
         // Smart light state
         JLabel smartLightLabel = new JLabel("Smart light: ");
@@ -108,6 +111,11 @@ public class SwingGui extends JFrame implements SmartBridgeView {
     @Override
     public void setController(SmartBridgeController controller) {
         this.controller = controller;
+    }
+
+    @Override
+    public void setProgramState(final String state) {
+        programState.setText(state);
     }
 
 }
