@@ -21,6 +21,16 @@ public interface SmartBridgeController {
     void setSmartLightOff();
 
     /**
+     * Show the valve controller.
+     */
+    void showValveController();
+
+    /**
+     * Hide the valve controller.
+     */
+    void hideValveController();
+
+    /**
      * Set the situation label to the chosen one.
      * 
      * @param situation the chosen situation

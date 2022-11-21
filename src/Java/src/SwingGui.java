@@ -27,17 +27,20 @@ public class SwingGui extends JFrame implements SmartBridgeView {
         pane.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
 
-        programState = new JLabel("Program state: ");
+        programState = new JLabel("Offline.");
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 0;
+        c.gridy = 0;
+        pane.add(programState, c);
 
         // Smart light state
         JLabel smartLightLabel = new JLabel("Smart light: ");
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
-        c.gridy = 0;
+        c.gridy = 1;
         pane.add(smartLightLabel, c);
         smartLightTextField = new JTextField(3);
         smartLightTextField.setEditable(false);
-        smartLightTextField.setText("OFF");
         c.gridx = 1;
         pane.add(smartLightTextField, c);
 
@@ -45,11 +48,10 @@ public class SwingGui extends JFrame implements SmartBridgeView {
         JLabel situationLabel = new JLabel("Situation: ");
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
-        c.gridy = 1;
+        c.gridy = 2;
         pane.add(situationLabel, c);
         situationTextField = new JTextField(6);
         situationTextField.setEditable(false);
-        situationTextField.setText("Pre-alarm");
         c.gridx = 1;
         pane.add(situationTextField, c);
 
@@ -57,7 +59,7 @@ public class SwingGui extends JFrame implements SmartBridgeView {
         valveLabel = new JLabel("Valve opening: ");
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
-        c.gridy = 2;
+        c.gridy = 3;
         pane.add(valveLabel, c);
         valveOpeningSlider = new JSlider(0, 180, 0);
         c.gridx = 1;
@@ -68,7 +70,7 @@ public class SwingGui extends JFrame implements SmartBridgeView {
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridwidth = 3;
         c.gridx = 0;
-        c.gridy = 3;
+        c.gridy = 4;
         pane.add(trendTextArea, c);
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

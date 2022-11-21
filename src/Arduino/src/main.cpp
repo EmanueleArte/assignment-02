@@ -22,6 +22,7 @@ void loop() {
   Serial.println(distance);
   delay(200);*/
 
+  MsgService.sendMsg("pong");
   if (MsgService.isMsgAvailable()) {
     Msg* msg = MsgService.receiveMsg();    
     if (msg->getContent() == "ping"){

@@ -7,7 +7,7 @@ public class SmartBridgeControllerImpl implements SmartBridgeController {
     
     public SmartBridgeControllerImpl(final SmartBridgeView view, final String port) {
         this.view = view;
-        model = new SmartBridgeModelImpl(this, port);
+        model = new SmartBridgeModelArduino(this, port);
     }
     
     @Override
@@ -39,6 +39,16 @@ public class SmartBridgeControllerImpl implements SmartBridgeController {
     @Override
     public void setProgramState(final String state) {
         view.setProgramState(state);
+    }
+
+    @Override
+    public void showValveController() {
+        view.showValveController();
+    }
+
+    @Override
+    public void hideValveController() {
+        view.hideValveController();
     }
     
 }
