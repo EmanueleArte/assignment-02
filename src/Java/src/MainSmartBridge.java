@@ -4,7 +4,7 @@ import jssc.SerialPortList;
 
 public class MainSmartBridge {
     public static void main(String[] args) throws Exception {
-        Gui gui = new SwingGui();
+        SmartBridgeView gui = new SwingGui();
         gui.start();
         if (args.length == 0) {
             CommChannel channel = new SerialCommChannel(args[0],9600);

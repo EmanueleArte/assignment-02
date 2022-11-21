@@ -6,7 +6,7 @@ import javax.swing.JTextField;
 import java.awt.*;
 
 /**
- * Gui implementation based on Swing.
+ * SmartBridgeView implementation based on Swing.
  */
 public class SwingGui extends JFrame implements SmartBridgeView {
     private static final long serialVersionUID = 1L;
@@ -15,6 +15,7 @@ public class SwingGui extends JFrame implements SmartBridgeView {
     private final JTextField situationTextField;
     private final JSlider valveOpeningSlider;
     private final JLabel valveLabel;
+    private SmartBridgeController controller;
 
     public SwingGui() {
         frame = new JFrame("SmartBridge");
@@ -106,8 +107,7 @@ public class SwingGui extends JFrame implements SmartBridgeView {
 
     @Override
     public void setController(SmartBridgeController controller) {
-        // TODO Auto-generated method stub
-        
+        this.controller = controller;
     }
 
 }

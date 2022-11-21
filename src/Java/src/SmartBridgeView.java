@@ -10,6 +10,7 @@ public interface SmartBridgeView {
 
     /**
      * Set the smart light state.
+     * 
      * @param state the state
      */
     void updateSmartLightStatus(boolean state);
@@ -26,18 +27,21 @@ public interface SmartBridgeView {
 
     /**
      * Show the water trend.
+     * 
      * @param trend the water trend
      */
     void updateWaterTrend(String trend);
 
     /**
      * Set the situation.
+     * 
      * @param situation the situation
      */
     void updateSituation(String situation);
 
     /**
      * Set the smart bridge controller.
+     * 
      * @param controller the smart bridge controller
      */
     void setController(SmartBridgeController controller);
