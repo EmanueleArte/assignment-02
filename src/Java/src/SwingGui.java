@@ -20,7 +20,7 @@ public class SwingGui extends JFrame implements SmartBridgeView {
 
     public SwingGui() {
         frame = new JFrame("SmartBridge");
-        frame.setSize(350, 300);
+        frame.setSize(350, 350);
         frame.setLocation(200, 200);
 
         Container pane = frame.getContentPane();

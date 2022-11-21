@@ -22,7 +22,7 @@ public class SmartBridgeModelArduino implements SmartBridgeModel {
                 String msg = null;
                 try {
                     msg = channel.receiveMsg();
-                    msgCheck();
+                    msgCheck(msg);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -98,6 +98,11 @@ public class SmartBridgeModelArduino implements SmartBridgeModel {
         } else {
             controller.setSmartLightOff();
         }
+        if (situation != ALARM) {
+            controller.hideValveController();
+        } else {
+            controller.showValveController();
+        }
         controller.setSituation(situation);
         controller.setValveOpening(valve);
         //controller.setWaterTrendPoint("boh");
@@ -112,7 +117,7 @@ public class SmartBridgeModelArduino implements SmartBridgeModel {
                 smartLight = false;
                 break;
             case "Normal":
-                situation = Normal;
+                situation = NORMAL;
                 break;
             case "Pre-alarm":
                 situation = PRE_ALARM;
