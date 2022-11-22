@@ -22,13 +22,14 @@ void loop() {
   Serial.println(distance);
   delay(200);*/
 
-  MsgService.sendMsg("pong");
   if (MsgService.isMsgAvailable()) {
-    Msg* msg = MsgService.receiveMsg();    
-    if (msg->getContent() == "ping"){
-       delay(500);
-       MsgService.sendMsg("pong");
-    }
+    Msg* msg = MsgService.receiveMsg();
+    delay(100);
+    //Serial.println(msg->getContent());
+    //if (msg->getContent() == "ping"){
+        //delay(500);
+        //MsgService.sendMsg("pong");
+    //}
     /* NOT TO FORGET: message deallocation */
     delete msg;
   }

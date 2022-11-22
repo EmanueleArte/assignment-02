@@ -1,3 +1,5 @@
+import org.jfree.data.xy.XYSeriesCollection;
+
 /**
  * SmartBridgeController implementation.
  */
@@ -5,9 +7,9 @@ public class SmartBridgeControllerImpl implements SmartBridgeController {
     private final SmartBridgeView view;
     private final SmartBridgeModel model;
     
-    public SmartBridgeControllerImpl(final SmartBridgeView view, final String port) {
+    public SmartBridgeControllerImpl(final SmartBridgeView view, final String port, final XYSeriesCollection dataSet) {
         this.view = view;
-        model = new SmartBridgeModelArduino(this, port);
+        model = new SmartBridgeModelArduino(this, port, dataSet);
     }
     
     @Override
@@ -32,7 +34,6 @@ public class SmartBridgeControllerImpl implements SmartBridgeController {
 
     @Override
     public void setWaterTrendPoint(String trend) {
-        // TODO Auto-generated method stub
         
     }
 

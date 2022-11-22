@@ -1,8 +1,14 @@
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JSlider;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
+
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.xy.XYSeriesCollection;
+
 import java.awt.*;
 
 /**
@@ -17,10 +23,11 @@ public class SwingGui extends JFrame implements SmartBridgeView {
     private final JLabel valveLabel;
     private final JLabel programState;
     private SmartBridgeController controller;
+    private final XYSeriesCollection waterDataSet;
 
-    public SwingGui() {
+    public SwingGui(final XYSeriesCollection dataSet) {
         frame = new JFrame("SmartBridge");
-        frame.setSize(350, 350);
+        frame.setMinimumSize(new Dimension(500, 400));
         frame.setLocation(200, 200);
 
         Container pane = frame.getContentPane();
@@ -66,12 +73,28 @@ public class SwingGui extends JFrame implements SmartBridgeView {
         pane.add(valveOpeningSlider, c);
 
         // Temporal trend of water level
-        JTextArea trendTextArea = new JTextArea(10, 20);
+        waterDataSet = dataSet;
+        //waterDataSet.addSeries(waterLevelData);
+        JFreeChart chart = ChartFactory.createXYLineChart(
+                "Water trend",
+                "time",
+                "water level",
+                waterDataSet,
+                PlotOrientation.VERTICAL,
+                false,
+                true,
+                false
+                );
+
+        ChartPanel waterLevel = new ChartPanel(chart);
+        waterLevel.setPreferredSize(new Dimension(400, 200));
+        //JTextArea trendTextArea = new JTextArea(10, 20);
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridwidth = 3;
+        
         c.gridx = 0;
         c.gridy = 4;
-        pane.add(trendTextArea, c);
+        pane.add(waterLevel, c);
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //frame.pack();
@@ -113,6 +136,13 @@ public class SwingGui extends JFrame implements SmartBridgeView {
     @Override
     public void setController(SmartBridgeController controller) {
         this.controller = controller;
+        // Add listener to the slider
+        valveOpeningSlider.addChangeListener(e -> {
+            if (valveOpeningSlider.isVisible()) {
+                JSlider slider = (JSlider) e.getSource();
+                this.controller.setValveOpening(slider.getValue());
+            }
+        });
     }
 
     @Override

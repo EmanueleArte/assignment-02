@@ -4,8 +4,8 @@
 public interface SmartBridgeController {
 
     /**
-     * Set the grade of opening of the valve
-     * .
+     * Set the grade of opening of the valve.
+     * 
      * @param opening the grade of opening
      */
     void setValveOpening(int opening);

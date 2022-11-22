@@ -1,4 +1,8 @@
 import java.util.stream.Stream;
+
+import org.jfree.data.xy.XYSeries;
+import org.jfree.data.xy.XYSeriesCollection;
+
 import jssc.SerialPortList;
 
 /**
@@ -13,6 +17,9 @@ public class SmartBridgeModelArduino implements SmartBridgeModel {
     private String situation;
     private int valve;
     private CommChannel channel;
+    private final XYSeriesCollection waterDataSet;
+    private final XYSeries waterLevelData;
+    private int dataIndex;
 
     private class ListenerThread extends Thread {
 
@@ -23,6 +30,7 @@ public class SmartBridgeModelArduino implements SmartBridgeModel {
                 try {
                     msg = channel.receiveMsg();
                     msgCheck(msg);
+                    Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -32,11 +40,17 @@ public class SmartBridgeModelArduino implements SmartBridgeModel {
 
     }
 
-    public SmartBridgeModelArduino(final SmartBridgeController controller, final String port) {
+    public SmartBridgeModelArduino(final SmartBridgeController controller, final String port, final XYSeriesCollection dataSet) {
         this.controller = controller;
         smartLight = false;
-        situation = NORMAL;
+        situation = ALARM;
         valve = 0;
+        dataIndex = 0;
+        waterDataSet = dataSet;
+        waterLevelData = new XYSeries("Water");
+        waterDataSet.addSeries(waterLevelData);
+        waterLevelData.add(0, 1);
+        waterLevelData.add(1, 2);
         updateInfo();
 
         if (port.isEmpty()) {
@@ -51,7 +65,7 @@ public class SmartBridgeModelArduino implements SmartBridgeModel {
     @Override
     public void setValveOpening(final int opening) {
         valve = opening;
-
+        channel.sendMsg(String.valueOf(opening));
     }
 
     private void serialConnect() {
@@ -93,19 +107,19 @@ public class SmartBridgeModelArduino implements SmartBridgeModel {
     }
 
     private void updateInfo() {
+        // Smart light state update
         if (smartLight) {
             controller.setSmartLightOn();
         } else {
             controller.setSmartLightOff();
         }
+        // Valve controller showing
         if (situation != ALARM) {
             controller.hideValveController();
         } else {
             controller.showValveController();
         }
         controller.setSituation(situation);
-        controller.setValveOpening(valve);
-        //controller.setWaterTrendPoint("boh");
     }
 
     private void msgCheck(final String msg) {
@@ -126,10 +140,19 @@ public class SmartBridgeModelArduino implements SmartBridgeModel {
                 situation = ALARM;
                 break;
             default:
-                // da completare con il water level
+                addWaterData(msg);
                 break;
         }
         updateInfo();
+    }
+
+    /**
+     * Adds a new water level data point to the dataset.
+     * 
+     * @param msg the water data received from the Arduino
+     */
+    private void addWaterData(final String msg) {
+        waterLevelData.add(dataIndex, Double.parseDouble(msg));
     }
     
 }
