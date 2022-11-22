@@ -150,7 +150,7 @@ public class SmartBridgeModelArduino implements SmartBridgeModel {
      * @param msg the water data received from the Arduino
      */
     private void addWaterData(final String msg) {
-        waterLevelData.add(dataIndex, Double.parseDouble(msg));
+        waterLevelData.add(dataIndex++, Double.parseDouble(msg));
     }
     
 }
