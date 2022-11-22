@@ -65,7 +65,7 @@ public class SmartBridgeModelArduino implements SmartBridgeModel {
     @Override
     public void setValveOpening(final int opening) {
         valve = opening;
-        channel.sendMsg(String.valueOf(opening));
+        channel.sendMsg(String.valueOf(valve));
     }
 
     private void serialConnect() {
