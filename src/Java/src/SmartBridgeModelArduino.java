@@ -30,7 +30,7 @@ public class SmartBridgeModelArduino implements SmartBridgeModel {
                 try {
                     msg = channel.receiveMsg();
                     msgCheck(msg);
-                    Thread.sleep(1000);
+                    Thread.sleep(100);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -43,14 +43,12 @@ public class SmartBridgeModelArduino implements SmartBridgeModel {
     public SmartBridgeModelArduino(final SmartBridgeController controller, final String port, final XYSeriesCollection dataSet) {
         this.controller = controller;
         smartLight = false;
-        situation = ALARM;
+        situation = NORMAL;
         valve = 0;
         dataIndex = 0;
         waterDataSet = dataSet;
         waterLevelData = new XYSeries("Water");
         waterDataSet.addSeries(waterLevelData);
-        waterLevelData.add(0, 1);
-        waterLevelData.add(1, 2);
         updateInfo();
 
         if (port.isEmpty()) {
