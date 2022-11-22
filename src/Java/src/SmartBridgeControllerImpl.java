@@ -33,11 +33,6 @@ public class SmartBridgeControllerImpl implements SmartBridgeController {
     }
 
     @Override
-    public void setWaterTrendPoint(String trend) {
-        
-    }
-
-    @Override
     public void setProgramState(final String state) {
         view.setProgramState(state);
     }

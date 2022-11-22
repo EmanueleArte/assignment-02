@@ -26,13 +26,6 @@ public interface SmartBridgeView {
     void hideValveController();
 
     /**
-     * Show the water trend.
-     * 
-     * @param trend the water trend
-     */
-    void updateWaterTrend(String trend);
-
-    /**
      * Set the situation text.
      * 
      * @param situation the situation

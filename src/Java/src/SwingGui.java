@@ -123,12 +123,6 @@ public class SwingGui extends JFrame implements SmartBridgeView {
     }
 
     @Override
-    public void updateWaterTrend(String trend) {
-        // TODO Auto-generated method stub
-        
-    }
-
-    @Override
     public void updateSituation(final String situation) {
         situationTextField.setText(situation);
     }

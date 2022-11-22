@@ -38,13 +38,6 @@ public interface SmartBridgeController {
     void setSituation(String situation);
 
     /**
-     * Set a new point into the water trend.
-     * 
-     * @param trend the new point
-     */
-    void setWaterTrendPoint(String trend);
-
-    /**
      * Set the program state label text.
      * 
      * @param state the program state
