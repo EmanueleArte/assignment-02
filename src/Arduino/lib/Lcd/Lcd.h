@@ -5,8 +5,6 @@
 #include <string.h>
 
 class Lcd {
-  LiquidCrystal_I2C* lcd;
-  String lines[4];
 
 public:
   Lcd();
@@ -16,6 +14,10 @@ public:
   void clearAll();
   void turnOn();
   void turnOff();
+
+private:
+  LiquidCrystal_I2C* lcd;
+  String lines[4];
 
 };
 
