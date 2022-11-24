@@ -8,5 +8,5 @@ LightSensor::LightSensor(int pin, int threshold) {
 }
 
 bool LightSensor::check() {
-  return analogRead(this->pin) > this->threshold;
+  return analogRead(pin) > threshold;
 }

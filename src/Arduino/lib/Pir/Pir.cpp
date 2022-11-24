@@ -7,5 +7,5 @@ Pir::Pir(int pin) {
 }
 
 bool Pir::check() {
-  return digitalRead(this->pin);
+  return digitalRead(pin);
 }

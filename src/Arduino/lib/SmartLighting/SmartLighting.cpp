@@ -13,9 +13,9 @@ bool t1check();
 unsigned long lastPirOn = 0;
 
 SmartLighting::SmartLighting() {
-  this->ledA = new Led(LED_A_PIN);
-  this->p = new Pir(PIR_PIN);
-  this->ls = new LightSensor(LIGHT_SENSOR_PIN, THRESHOLD);
+  ledA = new Led(LED_A_PIN);
+  p = new Pir(PIR_PIN);
+  ls = new LightSensor(LIGHT_SENSOR_PIN, THRESHOLD);
 }
 
 void SmartLighting::init(int period) {
@@ -27,13 +27,13 @@ void SmartLighting::tick() {
 }
 
 void SmartLighting::routine() {
-  if(this->p->check()) {
+  if(p->check()) {
     lastPirOn = millis();
   }
-  if(this->ls->check() || t1check()) {
-    this->ledA->switchOff();
+  if(ls->check() || t1check()) {
+    ledA->switchOff();
   } else {
-    this->ledA->switchOn();
+    ledA->switchOn();
   }
 }
 

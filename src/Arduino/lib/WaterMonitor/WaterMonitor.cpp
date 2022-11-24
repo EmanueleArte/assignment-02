@@ -28,14 +28,14 @@ State state;
 unsigned long lastPirOn = 0;
 
 WaterMonitor::WaterMonitor() {
-  this->ledB = new Led(LED_B_PIN);
-  this->ledC = new Led(LED_C_PIN);
-  this->m = new Motor(MOTOR_PIN);
-  this->pot = new Potentiometer(POT_PIN);
-  this->s = new Sonar(SONAR_TRIG_PIN, SONAR_ECHO_PIN);
-  this->b = new Button(BUTTON_PIN);
-  this->lcd = new Lcd();
-  this->msgService = new MsgServiceClass();
+  ledB = new Led(LED_B_PIN);
+  ledC = new Led(LED_C_PIN);
+  m = new Motor(MOTOR_PIN);
+  pot = new Potentiometer(POT_PIN);
+  s = new Sonar(SONAR_TRIG_PIN, SONAR_ECHO_PIN);
+  b = new Button(BUTTON_PIN);
+  lcd = new Lcd();
+  msgService = new MsgServiceClass();
 }
 
 void WaterMonitor::init(int period) {
