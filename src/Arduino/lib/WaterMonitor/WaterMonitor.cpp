@@ -20,9 +20,11 @@
 #define MIN_DEGREES 0
 #define MAX_DEGREES 180
 
-State state;
+void blinkLed(Led* pin, unsigned period);
+
 enum State { NORMAL, PRE_ALARM, ALARM };
 
+State state;
 unsigned long lastPirOn = 0;
 
 WaterMonitor::WaterMonitor() {
@@ -38,7 +40,7 @@ WaterMonitor::WaterMonitor() {
 
 void WaterMonitor::init(int period) {
   Task::init(period);
-}  
+}
 
 void WaterMonitor::tick() {
   routine();
@@ -55,13 +57,16 @@ void WaterMonitor::routine() {
 }
 
 void WaterMonitor::normalState() {
+  this->init(PE_NORMAL);
   state = NORMAL;
   ledB->switchOn();
   ledC->switchOff();
   m->setValveDegrees(MIN_DEGREES);
+  msgService->sendMsg("Normal");
 }
 
 void WaterMonitor::preAlarmState() {
+  this->init(PE_PRE_ALARM);
   state = PRE_ALARM;
   ledB->switchOn();
   blinkLed(ledC, BLINK_PERIOD);
@@ -69,13 +74,14 @@ void WaterMonitor::preAlarmState() {
 }
 
 void WaterMonitor::alarmState() {
+  this->init(PE_ALARM);
   state = ALARM;
   ledB->switchOff();
   ledC->switchOn();
   m->setValveDegrees(map(s->getWaterLevel(), WLMAX, WL2, MAX_DEGREES, MIN_DEGREES));
 }
 
-void blinkLed(Led* led, int period) {
+void blinkLed(Led* led, unsigned period) {
   if(millis() % (period * 2) < period) {
     led->switchOn();
   } else {

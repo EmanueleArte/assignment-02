@@ -17,8 +17,6 @@ void setup() {
 
   sched.addTask(smartLighting);
   sched.addTask(waterMonitor);
-
-
 }
 
 void loop() {
