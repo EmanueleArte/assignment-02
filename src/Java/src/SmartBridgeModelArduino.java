@@ -26,6 +26,7 @@ public class SmartBridgeModelArduino implements SmartBridgeModel {
         @Override
         public void run() {
             while (true) {
+                System.out.println("Waiting for data...");
                 String msg = null;
                 try {
                     msg = channel.receiveMsg();
@@ -34,7 +35,7 @@ public class SmartBridgeModelArduino implements SmartBridgeModel {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                System.out.println("Received: " + msg);
+                //System.out.println("Received: " + msg);
             }
         }
 
@@ -69,8 +70,8 @@ public class SmartBridgeModelArduino implements SmartBridgeModel {
     private void serialConnect() {
         try {
             String[] portNames = SerialPortList.getPortNames();
-            System.out.println("Available ports:");
-            Stream.of(portNames).forEach(System.out::println);
+            //System.out.println("Available ports:");
+            //Stream.of(portNames).forEach(System.out::println);
             channel = new SerialCommChannel(Stream.of(portNames)
                 .filter(p -> p.contains("cu.usb") || p.contains("COM3"))
                 .findFirst().get(), 9600);
@@ -121,6 +122,7 @@ public class SmartBridgeModelArduino implements SmartBridgeModel {
     }
 
     private void msgCheck(final String msg) {
+        System.out.println("Checking message: " + msg);
         switch (msg) {
             case "SmartLight-on":
                 smartLight = true;
@@ -150,7 +152,9 @@ public class SmartBridgeModelArduino implements SmartBridgeModel {
      * @param msg the water data received from the Arduino
      */
     private void addWaterData(final String msg) {
-        waterLevelData.add(dataIndex++, Double.parseDouble(msg));
+        if (msg.matches("[0-9]+")) {
+            waterLevelData.add(dataIndex++, Double.parseDouble(msg));
+        }
     }
     
 }

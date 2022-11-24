@@ -10,6 +10,13 @@
 #include "Lcd.h"
 #include "MsgService.h"
 
+#define WL1 40
+#define WL2 20
+#define WLMAX 0
+#define PE_NORMAL 500
+#define PE_PRE_ALARM 200
+#define PE_ALARM 100
+
 class WaterMonitor : public Task {
 public:
   WaterMonitor();  

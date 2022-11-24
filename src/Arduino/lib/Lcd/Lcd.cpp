@@ -17,7 +17,7 @@ void Lcd::print(String text, int line) {
 
 void Lcd::clear(int line) {
   lcd->setCursor(0, line);
-  for (int i = 0; i < lines[line].length(); i++) {
+  for (unsigned int i = 0; i < lines[line].length(); i++) {
     lcd->print(" ");
   }
 }

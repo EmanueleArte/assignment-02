@@ -1,5 +1,4 @@
 #include "WaterMonitor.h"
-#include <Arduino.h>
 
 #define POT_PIN A2
 #define BUTTON_PIN 8
@@ -9,23 +8,15 @@
 #define SONAR_TRIG_PIN 12
 #define SONAR_ECHO_PIN 13
 
-#define WL1 40
-#define WL2 20
-#define WLMAX 0
-#define PE_NORMAL 500
-#define PE_PRE_ALARM 200
-#define PE_ALARM 100
-
 #define BLINK_PERIOD 2000
 #define MIN_DEGREES 0
 #define MAX_DEGREES 180
 
 void blinkLed(Led* pin, unsigned period);
 
-enum State { NORMAL, PRE_ALARM, ALARM };
+enum State { NORMAL, PRE_ALARM, ALARM, NONE };
 
 State state;
-unsigned long lastPirOn = 0;
 
 WaterMonitor::WaterMonitor() {
   ledB = new Led(LED_B_PIN);
@@ -36,6 +27,7 @@ WaterMonitor::WaterMonitor() {
   b = new Button(BUTTON_PIN);
   lcd = new Lcd();
   msgService = new MsgServiceClass();
+  state = NONE;
 }
 
 void WaterMonitor::init(int period) {
@@ -43,46 +35,56 @@ void WaterMonitor::init(int period) {
 }
 
 void WaterMonitor::tick() {
-  routine();
+  Serial.println("WaterMonitor::tick()");
+  //routine();
 }
 
 void WaterMonitor::routine() {
-  if(s->getWaterLevel() > WL1) {
+  if (s->getWaterLevel() > WL1) {
     normalState();
   } else if(s->getWaterLevel() > WL2 && s->getWaterLevel() <= WL1) {
     preAlarmState();
   } else {
     alarmState();
   }
+  msgService->sendMsg("Prova");
 }
 
 void WaterMonitor::normalState() {
-  this->init(PE_NORMAL);
-  state = NORMAL;
-  ledB->switchOn();
-  ledC->switchOff();
-  m->setValveDegrees(MIN_DEGREES);
-  msgService->sendMsg("Normal");
+  if (state != NORMAL) {
+    this->init(PE_NORMAL);
+    msgService->sendMsg("Normal");
+    state = NORMAL;
+    ledB->switchOn();
+    ledC->switchOff();
+    m->setValveDegrees(MIN_DEGREES);
+  }
 }
 
 void WaterMonitor::preAlarmState() {
-  this->init(PE_PRE_ALARM);
-  state = PRE_ALARM;
-  ledB->switchOn();
-  blinkLed(ledC, BLINK_PERIOD);
-  m->setValveDegrees(MIN_DEGREES);
+  if (state != PRE_ALARM) {
+    this->init(PE_PRE_ALARM);
+    msgService->sendMsg("Pre-alarm");
+    state = PRE_ALARM;
+    ledB->switchOn();
+    blinkLed(ledC, BLINK_PERIOD);
+    m->setValveDegrees(MIN_DEGREES);
+  }
 }
 
 void WaterMonitor::alarmState() {
-  this->init(PE_ALARM);
-  state = ALARM;
-  ledB->switchOff();
-  ledC->switchOn();
-  m->setValveDegrees(map(s->getWaterLevel(), WLMAX, WL2, MAX_DEGREES, MIN_DEGREES));
+  if (state != ALARM) {
+    this->init(PE_ALARM);
+    msgService->sendMsg("Alarm");
+    state = ALARM;
+    ledB->switchOff();
+    ledC->switchOn();
+    m->setValveDegrees(map(s->getWaterLevel(), WLMAX, WL2, MAX_DEGREES, MIN_DEGREES));
+  }
 }
 
 void blinkLed(Led* led, unsigned period) {
-  if(millis() % (period * 2) < period) {
+  if (millis() % (period * 2) < period) {
     led->switchOn();
   } else {
     led->switchOff();

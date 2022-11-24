@@ -13,7 +13,7 @@ void setup() {
   Task* smartLighting = new SmartLighting();
   smartLighting->init(200);
   Task* waterMonitor = new WaterMonitor();
-  waterMonitor->init(500);
+  waterMonitor->init(100);
 
   sched.addTask(smartLighting);
   sched.addTask(waterMonitor);
