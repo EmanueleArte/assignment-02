@@ -1,32 +1,35 @@
 #include "Lcd.h"
 
+Lcd::Lcd() {
+  lcd = new LiquidCrystal_I2C(0x27, 20, 4);
+}
+
 void Lcd::init() {
-  lcd = LiquidCrystal_I2C(0x27, 20, 4);
-  lcd.init();
+  lcd->init();
 }
 
 void Lcd::print(String text, int line) {
   lines[line] = text;
-  lcd.setCursor(0, line);
+  lcd->setCursor(0, line);
   clear(line);
-  lcd.print(text);
+  lcd->print(text);
 }
 
 void Lcd::clear(int line) {
-  lcd.setCursor(0, line);
+  lcd->setCursor(0, line);
   for (int i = 0; i < lines[line].length(); i++) {
-    lcd.print(" ");
+    lcd->print(" ");
   }
 }
 
 void Lcd::clearAll() {
-  lcd.clear();
+  lcd->clear();
 }
 
 void Lcd::turnOn() {
-  lcd.backlight();
+  lcd->backlight();
 }
 
 void Lcd::turnOff() {
-  lcd.noBacklight();
+  lcd->noBacklight();
 }

@@ -1,36 +1,21 @@
 #include <Arduino.h>
 #include <Wire.h>
-#include <LiquidCrystal_I2C.h>
-#include <Ultrasonic.h>
-#include "MsgService.h"
+#include "Scheduler.h"
+#include "SmartLighting.h"
 
-Ultrasonic us(12, 13);
-LiquidCrystal_I2C lcd = LiquidCrystal_I2C(0x27, 20, 4);
+//Ultrasonic us(12, 13);
+Scheduler sched;
 
 void setup() {
   Serial.begin(9600);
-  //lcd.init();
-  //lcd.backlight();
-  MsgService.init();
+  sched.init(100);
+
+  Task* smartLighting = new SmartLighting();
+  smartLighting->init(200);
+
+  sched.addTask(smartLighting);
 }
 
 void loop() {
-  /*int distance = us.read();
-  lcd.clear();
-  lcd.setCursor(2, 1);
-  lcd.print(distance);
-  Serial.println(distance);
-  delay(200);*/
-
-  if (MsgService.isMsgAvailable()) {
-    Msg* msg = MsgService.receiveMsg();
-    delay(100);
-    //Serial.println(msg->getContent());
-    //if (msg->getContent() == "ping"){
-        //delay(500);
-        //MsgService.sendMsg("pong");
-    //}
-    /* NOT TO FORGET: message deallocation */
-    delete msg;
-  }
+  sched.schedule();
 }
