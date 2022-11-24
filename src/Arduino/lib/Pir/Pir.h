@@ -1,13 +1,16 @@
 #ifndef __PIR__
 #define __PIR__
 
-class Pir {
+#include "Sensor.h"
+
+class Pir : public Sensor {
 public:
   Pir(int pin);
   bool check();
 
 private:
   int pin;
+
 };
 
 #endif

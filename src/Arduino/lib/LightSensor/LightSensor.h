@@ -1,9 +1,11 @@
 #ifndef __LIGHTSENSOR__
 #define __LIGHTSENSOR__
 
-class LightSensor {
+#include "Sensor.h"
+
+class LightSensor : public Sensor {
+
 public:
-  // aggiungere interfaccia comune
   LightSensor(int pin, int threshold);
   bool check();
 
