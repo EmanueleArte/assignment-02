@@ -2,8 +2,8 @@
 #include <Wire.h>
 #include "Scheduler.h"
 #include "SmartLighting.h"
+#include "WaterMonitor.h"
 
-//Ultrasonic us(12, 13);
 Scheduler sched;
 
 void setup() {
@@ -12,8 +12,13 @@ void setup() {
 
   Task* smartLighting = new SmartLighting();
   smartLighting->init(200);
+  Task* waterMonitor = new WaterMonitor();
+  waterMonitor->init(200);
 
   sched.addTask(smartLighting);
+  sched.addTask(waterMonitor);
+
+
 }
 
 void loop() {

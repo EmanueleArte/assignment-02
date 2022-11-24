@@ -1,6 +1,7 @@
 #ifndef __SONAR__
 #define __SONAR__
 
+#include <Arduino.h>
 #include <Ultrasonic.h>
 
 class Sonar {

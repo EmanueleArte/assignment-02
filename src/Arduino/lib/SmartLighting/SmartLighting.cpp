@@ -2,8 +2,9 @@
 #include <Arduino.h>
 
 #define PIR_PIN 7
-#define LIGHT_SENSOR_PIN A5
+#define LIGHT_SENSOR_PIN A3
 #define LED_A_PIN 6
+
 #define THRESHOLD 600
 #define T1 2000
 
