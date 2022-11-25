@@ -26,7 +26,6 @@ public class SmartBridgeModelArduino implements SmartBridgeModel {
         @Override
         public void run() {
             while (true) {
-                System.out.println("Waiting for data...");
                 String msg = null;
                 try {
                     msg = channel.receiveMsg();
@@ -35,7 +34,6 @@ public class SmartBridgeModelArduino implements SmartBridgeModel {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                //System.out.println("Received: " + msg);
             }
         }
 

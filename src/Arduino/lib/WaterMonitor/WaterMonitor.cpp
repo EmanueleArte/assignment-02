@@ -28,6 +28,7 @@ WaterMonitor::WaterMonitor() {
   lcd = new Lcd();
   msgService = new MsgServiceClass();
   state = NONE;
+  lcd->init();
 }
 
 void WaterMonitor::init(int period) {
@@ -35,8 +36,8 @@ void WaterMonitor::init(int period) {
 }
 
 void WaterMonitor::tick() {
-  Serial.println("WaterMonitor::tick()");
-  //routine();
+  //Serial.println("WaterMonitor::tick()");
+  routine();
 }
 
 void WaterMonitor::routine() {
@@ -47,7 +48,6 @@ void WaterMonitor::routine() {
   } else {
     alarmState();
   }
-  msgService->sendMsg("Prova");
 }
 
 void WaterMonitor::normalState() {
@@ -67,9 +67,9 @@ void WaterMonitor::preAlarmState() {
     msgService->sendMsg("Pre-alarm");
     state = PRE_ALARM;
     ledB->switchOn();
-    blinkLed(ledC, BLINK_PERIOD);
     m->setValveDegrees(MIN_DEGREES);
   }
+  blinkLed(ledC, BLINK_PERIOD);
 }
 
 void WaterMonitor::alarmState() {
@@ -79,8 +79,8 @@ void WaterMonitor::alarmState() {
     state = ALARM;
     ledB->switchOff();
     ledC->switchOn();
-    m->setValveDegrees(map(s->getWaterLevel(), WLMAX, WL2, MAX_DEGREES, MIN_DEGREES));
   }
+  m->setValveDegrees(map(s->getWaterLevel(), WLMAX, WL2, MAX_DEGREES, MIN_DEGREES));
 }
 
 void blinkLed(Led* led, unsigned period) {
