@@ -5,22 +5,23 @@
 #include "WaterMonitor.h"
 
 Scheduler sched;
-Task* waterMonitor;
+
 void setup() {
   Serial.begin(9600);
-  //sched.init(100);
+  sched.init(100);
 
+  //disabilitare sistema luci in alarm
   Task* smartLighting = new SmartLighting();
   smartLighting->init(200);
-  waterMonitor = new WaterMonitor();
-  waterMonitor->init(500);
+  Task* waterMonitor = new WaterMonitor();
+  waterMonitor->init(PE_NORMAL);
 
-  //sched.addTask(smartLighting);
-  //sched.addTask(waterMonitor);
+  sched.addTask(smartLighting);
+  sched.addTask(waterMonitor);
 }
 
 void loop() {
-  //sched.schedule();
-  waterMonitor->tick();
-  delay(200);
+  sched.schedule();
+  //waterMonitor->tick();
+  //delay(200);
 }

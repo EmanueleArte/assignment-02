@@ -7,5 +7,5 @@ Potentiometer::Potentiometer(int pin){
 } 
   
 int Potentiometer::getValveDegrees(){
-  return map(analogRead(pin), 0, 1023, 0, 180);
+  return analogRead(pin);
 }

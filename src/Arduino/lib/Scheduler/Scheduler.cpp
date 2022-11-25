@@ -1,5 +1,5 @@
 #include <Scheduler.h>
-#include <Timer.h>
+#include <TimerTwo.h>
 
 volatile bool timerFlag;
 
@@ -10,11 +10,9 @@ void timerHandler(void){
 void Scheduler::init(int basePeriod){
   this->basePeriod = basePeriod;
   timerFlag = false;
-  long period = 1000l*basePeriod;
-  //Timer1.initialize(period);
-  //Timer1.attachInterrupt(timerHandler);
-  Timer.setupPeriod(period);
-  
+  //long period = 1000l*basePeriod;
+  Timer2.init(basePeriod, timerHandler);
+  Timer2.start();
   nTasks = 0;
 }
 

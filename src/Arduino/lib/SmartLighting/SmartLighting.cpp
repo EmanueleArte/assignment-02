@@ -5,7 +5,7 @@
 #define LIGHT_SENSOR_PIN A3
 #define LED_A_PIN 6
 
-#define THRESHOLD 600
+#define THRESHOLD 400
 #define T1 2000
 
 bool t1check();

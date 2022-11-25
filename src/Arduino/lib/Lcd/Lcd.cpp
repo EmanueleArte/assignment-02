@@ -9,10 +9,11 @@ void Lcd::init() {
 }
 
 void Lcd::print(String text, int line) {
-  lines[line] = text;
-  lcd->setCursor(0, line);
-  clear(line);
-  lcd->print(text);
+    clear(line);
+    lines[line] = text;
+    lcd->setCursor(0, line);
+    lcd->print(text);
+  
 }
 
 void Lcd::clear(int line) {

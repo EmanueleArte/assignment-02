@@ -7,5 +7,5 @@ Motor::Motor(int pin) {
   
 void Motor::setValveDegrees(int degrees) {
   motor.write(degrees);
-  delay(10);
+  delay(50);
 }

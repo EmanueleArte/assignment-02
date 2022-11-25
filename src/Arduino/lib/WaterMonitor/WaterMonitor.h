@@ -13,9 +13,9 @@
 #define WL1 40
 #define WL2 20
 #define WLMAX 0
-#define PE_NORMAL 500
-#define PE_PRE_ALARM 200
-#define PE_ALARM 100
+#define PE_NORMAL 2000
+#define PE_PRE_ALARM 1000
+#define PE_ALARM 500
 
 class WaterMonitor : public Task {
 public:
@@ -32,6 +32,7 @@ private:
   Button* b;
   Lcd* lcd;
   MsgServiceClass* msgService;
+  bool manualMode;
   void routine();
   void normalState();
   void preAlarmState();
