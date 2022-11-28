@@ -2,22 +2,26 @@
 #define __LCD__
 
 #include <LiquidCrystal_I2C.h>
-#include <string.h>
+
+#define LCD_LINE_LENGTH 20
+#define LCD_NUM_LENGTH 5
 
 class Lcd {
 
 public:
   Lcd();
   void init();
-  void print(String text, int line);
+  void print(char* text, int line);
+  void print(char* text, int line, int col);
   void clear(int line);
+  void clear(int line, int col);
   void clearAll();
   void turnOn();
   void turnOff();
 
 private:
   LiquidCrystal_I2C* lcd;
-  String lines[4];
+  char lines[4][LCD_LINE_LENGTH];
 
 };
 

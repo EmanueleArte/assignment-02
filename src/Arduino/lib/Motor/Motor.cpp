@@ -6,6 +6,11 @@ Motor::Motor(int pin) {
 } 
   
 void Motor::setValveDegrees(int degrees) {
-  motor.write(degrees);
-  delay(50);
+  valveDegrees = degrees;
+  motor.write(valveDegrees);
+  delay(30);
+}
+
+int Motor::getValveDegrees() {
+  return valveDegrees;
 }

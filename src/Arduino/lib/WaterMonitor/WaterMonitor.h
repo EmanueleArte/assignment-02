@@ -13,9 +13,9 @@
 #define WL1 40
 #define WL2 20
 #define WLMAX 0
-#define PE_NORMAL 2000
-#define PE_PRE_ALARM 1000
-#define PE_ALARM 500
+#define PE_NORMAL 1000
+#define PE_PRE_ALARM 500
+#define PE_ALARM 200
 
 class WaterMonitor : public Task {
 public:

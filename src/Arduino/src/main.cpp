@@ -12,9 +12,9 @@ void setup() {
 
   //disabilitare sistema luci in alarm
   Task* smartLighting = new SmartLighting();
-  smartLighting->init(200);
+  smartLighting->init(1000);
   Task* waterMonitor = new WaterMonitor();
-  waterMonitor->init(PE_NORMAL);
+  waterMonitor->init(2000);
 
   sched.addTask(smartLighting);
   sched.addTask(waterMonitor);
@@ -22,6 +22,4 @@ void setup() {
 
 void loop() {
   sched.schedule();
-  //waterMonitor->tick();
-  //delay(200);
 }
