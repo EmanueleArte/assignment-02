@@ -125,6 +125,13 @@ char* WaterMonitor::getSituation() {
   return situation;
 }
 
+void WaterMonitor::deactivationRoutine() {
+  ledB->switchOff();
+  ledC->switchOff();
+  lcd->turnOff();
+  m->setValveDegrees(MIN_DEGREES);
+}
+
 // Make the given led blink at the given period
 void blinkLed(Led* led, unsigned period) {
   if (millis() % (period * 2) < period) {

@@ -12,7 +12,7 @@ public class SmartBridgeModelArduino implements SmartBridgeModel {
     private final static String NORMAL = "Normal";
     private final static String PRE_ALARM = "Pre-alarm";
     private final static String ALARM = "Alarm";
-    private final static double MAX_WATER_LEVEL = 257.0;
+    private final static double MAX_WATER_LEVEL = 357.0;
     private final SmartBridgeController controller;
     private boolean smartLight;
     private String situation;
@@ -150,6 +150,7 @@ public class SmartBridgeModelArduino implements SmartBridgeModel {
      * @param msg the water data received from the Arduino
      */
     private void addWaterData(final String msg) {
+        System.out.println("Water level: " + msg);
         if (msg.matches("[0-9]+")) {
             waterLevelData.add(dataIndex++, MAX_WATER_LEVEL - Double.parseDouble(msg));
         }

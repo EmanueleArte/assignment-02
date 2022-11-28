@@ -12,16 +12,15 @@ public:
   SmartLighting();
   void init(int period);
   void tick();
-  void activate();
-  void deactivate();
 
 private:
   Led* ledA;
   Pir* p;
   LightSensor* ls;
   MsgServiceClass* msgService;
-  bool active;
   void routine();
+  void deactivationRoutine();
+
 };
 
 #endif

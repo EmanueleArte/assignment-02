@@ -19,7 +19,7 @@ void setup() {
   Task* waterMonitor = new WaterMonitor();
   waterMonitor->init(PE_NORMAL);
   Task* lightActivator = new LightActivator(smartLighting, waterMonitor, PE_ALARM);
-  lightActivator->init(SL_PERIOD);
+  lightActivator->init(PE_ALARM);
 
   sched.addTask(smartLighting);
   sched.addTask(waterMonitor);

@@ -30,12 +30,18 @@ public:
   }
 
   void setActive(bool active){
+    if (!active) {
+      deactivationRoutine();
+    }
     this->active = active;
   }
 
   int getPeriod(){
     return myPeriod;
   }
+
+private:
+  virtual void deactivationRoutine() = 0;
   
 };
 

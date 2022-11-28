@@ -24,7 +24,6 @@ public:
   WaterMonitor();
   void init(int period);
   void tick();
-  State getState();
 
 private:
   Led* ledB;
@@ -42,6 +41,7 @@ private:
   void preAlarmState();
   void alarmState();
   char* getSituation();
+  void deactivationRoutine();
 
 };
 
