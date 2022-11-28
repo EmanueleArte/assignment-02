@@ -8,6 +8,7 @@ void Lcd::init() {
   lcd->init();
 }
 
+// Prints the given string at the given line
 void Lcd::print(char* text, int line) {
     clear(line);
     strcpy(lines[line], text);
@@ -15,6 +16,7 @@ void Lcd::print(char* text, int line) {
     lcd->print(text);
 }
 
+// Prints the given string at the given line and column
 void Lcd::print(char* text, int line, int col) {
   clear(line, col);
   strcpy(lines[line], text);
@@ -22,6 +24,7 @@ void Lcd::print(char* text, int line, int col) {
   lcd->print(text);
 }
 
+// Clears the given line
 void Lcd::clear(int line) {
   lcd->setCursor(0, line);
   for (unsigned int i = 0; i < LCD_LINE_LENGTH; i++) {
@@ -29,6 +32,7 @@ void Lcd::clear(int line) {
   }
 }
 
+// Clears the given line starting from the given column
 void Lcd::clear(int line, int col) {
   lcd->setCursor(col, line);
   for (unsigned int i = 0; i < LCD_NUM_LENGTH; i++) {

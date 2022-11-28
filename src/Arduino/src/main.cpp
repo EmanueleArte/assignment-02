@@ -3,6 +3,10 @@
 #include "Scheduler.h"
 #include "SmartLighting.h"
 #include "WaterMonitor.h"
+#include "LightActivator.h"
+#include "MsgService.h"
+
+#define SL_PERIOD 500
 
 Scheduler sched;
 
@@ -10,14 +14,16 @@ void setup() {
   Serial.begin(9600);
   sched.init(100);
 
-  //disabilitare sistema luci in alarm
   Task* smartLighting = new SmartLighting();
-  smartLighting->init(1000);
+  smartLighting->init(SL_PERIOD);
   Task* waterMonitor = new WaterMonitor();
-  waterMonitor->init(2000);
+  waterMonitor->init(PE_NORMAL);
+  Task* lightActivator = new LightActivator(smartLighting, waterMonitor, PE_ALARM);
+  lightActivator->init(SL_PERIOD);
 
   sched.addTask(smartLighting);
   sched.addTask(waterMonitor);
+  sched.addTask(lightActivator);
 }
 
 void loop() {

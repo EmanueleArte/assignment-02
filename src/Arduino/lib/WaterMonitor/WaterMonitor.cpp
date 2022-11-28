@@ -20,10 +20,8 @@ char* getValveDegrees(Motor* m);
 #define STATE_NUMBER 3
 #define STATE_NAME_LENGTH 10
 
-enum State { NORMAL, PRE_ALARM, ALARM, NONE };
 char stateName[STATE_NUMBER][STATE_NAME_LENGTH] = { "Normal", "Pre-alarm", "Alarm" };
 
-State state;
 char situation[30];
 char buffer[30];
 
@@ -35,7 +33,6 @@ WaterMonitor::WaterMonitor() {
   s = new Sonar(SONAR_TRIG_PIN, SONAR_ECHO_PIN);
   b = new Button(BUTTON_PIN);
   lcd = new Lcd();
-  msgService = new MsgServiceClass();
   manualMode = false;
   state = NONE;
   lcd->init();
@@ -43,6 +40,7 @@ WaterMonitor::WaterMonitor() {
 
 void WaterMonitor::init(int period) {
   Task::init(period);
+  msgService = new MsgServiceClass();
 }
 
 void WaterMonitor::tick() {
@@ -118,6 +116,13 @@ void WaterMonitor::alarmState() {
   lcd->print(getValveDegrees(m), 2, 15);
 }
 
+// Returns a string with the current situation
+char* WaterMonitor::getSituation() {
+  strcpy(situation, "Situation: ");
+  strcat(situation, stateName[state]);
+  return situation;
+}
+
 // Make the given led blink at the given period
 void blinkLed(Led* led, unsigned period) {
   if (millis() % (period * 2) < period) {
@@ -125,13 +130,6 @@ void blinkLed(Led* led, unsigned period) {
   } else {
     led->switchOff();
   }
-}
-
-// Returns a string with the current situation
-char* getSituation() {
-  strcpy(situation, "Situation: ");
-  strcat(situation, stateName[state]);
-  return situation;
 }
 
 // Returns a string with the current water level
