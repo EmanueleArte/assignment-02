@@ -56,6 +56,7 @@ void WaterMonitor::routine() {
   } else {
     alarmState();
   }
+  msgService->sendMsg(s->getWaterLevel());
 }
 
 void WaterMonitor::normalState() {
