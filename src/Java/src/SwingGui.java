@@ -77,7 +77,7 @@ public class SwingGui extends JFrame implements SmartBridgeView {
         //waterDataSet.addSeries(waterLevelData);
         JFreeChart chart = ChartFactory.createXYLineChart(
                 "Water trend",
-                "time",
+                "readings",
                 "water level",
                 waterDataSet,
                 PlotOrientation.VERTICAL,

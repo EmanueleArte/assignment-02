@@ -56,7 +56,8 @@ void WaterMonitor::routine() {
   } else {
     alarmState();
   }
-  msgService->sendMsg(s->getWaterLevel());
+  sprintf(buffer, "%d", s->getWaterLevel());
+  msgService->sendMsg(buffer);
 }
 
 void WaterMonitor::normalState() {

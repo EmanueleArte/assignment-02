@@ -12,6 +12,7 @@ public class SmartBridgeModelArduino implements SmartBridgeModel {
     private final static String NORMAL = "Normal";
     private final static String PRE_ALARM = "Pre-alarm";
     private final static String ALARM = "Alarm";
+    private final static double MAX_WATER_LEVEL = 257.0;
     private final SmartBridgeController controller;
     private boolean smartLight;
     private String situation;
@@ -120,7 +121,6 @@ public class SmartBridgeModelArduino implements SmartBridgeModel {
     }
 
     private void msgCheck(final String msg) {
-        System.out.println("Checking message: " + msg);
         switch (msg) {
             case "SmartLight-on":
                 smartLight = true;
@@ -151,7 +151,7 @@ public class SmartBridgeModelArduino implements SmartBridgeModel {
      */
     private void addWaterData(final String msg) {
         if (msg.matches("[0-9]+")) {
-            waterLevelData.add(dataIndex++, Double.parseDouble(msg));
+            waterLevelData.add(dataIndex++, MAX_WATER_LEVEL - Double.parseDouble(msg));
         }
     }
     
