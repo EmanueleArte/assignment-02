@@ -109,7 +109,6 @@ void WaterMonitor::alarmState() {
   manualModeManager();
   if (!manualMode && !remoteManualMode) {
     degrees = map(s->getData(), WLMAX, WL2, MAX_DEGREES, MIN_DEGREES);
-    //m->setValveDegrees(map(s->getData(), WLMAX, WL2, MAX_DEGREES, MIN_DEGREES));
   } else {
     if (manualMode) {
       degrees = map(pot->getValveDegrees(), 0, 1023, MAX_DEGREES, MIN_DEGREES);
