@@ -15,13 +15,6 @@ public:
     WaterMonitor = t2;
     activationPeriod = period;
   }
-
-  // task1 is the task to be activated, task2 is the task that activates task1
-  /*void setup(Task* t1, Task* t2, int period) {
-    SmartLighting = t1;
-    WaterMonitor = t2;
-    activationPeriod = period;
-  }*/
   
   void init(int period) {
     Task::init(period);
