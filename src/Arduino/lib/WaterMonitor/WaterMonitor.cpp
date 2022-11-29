@@ -172,7 +172,7 @@ bool WaterMonitor::remoteControl() {
 
 // Make the given led blink at the given period
 void blinkLed(Led* led, unsigned period) {
-  if (millis() % (period * 2) < period) {
+  if (millis() % period < (period / 2)) {
     led->switchOn();
   } else {
     led->switchOff();

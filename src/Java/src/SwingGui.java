@@ -29,7 +29,7 @@ public class SwingGui extends JFrame implements SmartBridgeView {
 
     public SwingGui(final XYSeriesCollection dataSet) {
         frame = new JFrame("SmartBridge");
-        frame.setMinimumSize(new Dimension(500, 400));
+        frame.setMinimumSize(new Dimension(700, 600));
         frame.setLocation(200, 200);
 
         Container pane = frame.getContentPane();
@@ -85,7 +85,7 @@ public class SwingGui extends JFrame implements SmartBridgeView {
         JFreeChart chart = ChartFactory.createXYLineChart(
                 "Water trend",
                 "time(s)",
-                "water level",
+                "water level(cm)",
                 waterDataSet,
                 PlotOrientation.VERTICAL,
                 false,
@@ -94,7 +94,7 @@ public class SwingGui extends JFrame implements SmartBridgeView {
                 );
 
         ChartPanel waterLevel = new ChartPanel(chart);
-        waterLevel.setPreferredSize(new Dimension(400, 200));
+        waterLevel.setPreferredSize(new Dimension(600, 400));
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridwidth = 3;
         
