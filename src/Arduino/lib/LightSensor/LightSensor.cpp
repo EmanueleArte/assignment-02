@@ -10,3 +10,7 @@ LightSensor::LightSensor(int pin, int threshold) {
 bool LightSensor::check() {
   return analogRead(pin) > threshold;
 }
+
+int LightSensor::getData() {
+  return analogRead(pin);
+}

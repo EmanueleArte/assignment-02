@@ -8,6 +8,7 @@ class LightSensor : public Sensor {
 public:
   LightSensor(int pin, int threshold);
   bool check();
+  int getData();
 
 private:
   int pin;

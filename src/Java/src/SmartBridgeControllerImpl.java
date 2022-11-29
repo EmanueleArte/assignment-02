@@ -46,5 +46,10 @@ public class SmartBridgeControllerImpl implements SmartBridgeController {
     public void hideValveController() {
         view.hideValveController();
     }
+
+    @Override
+    public void setRemoteControl(boolean state) {
+        view.setRemoteControl(state);
+    }
     
 }

@@ -1,3 +1,4 @@
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JSlider;
@@ -20,6 +21,7 @@ public class SwingGui extends JFrame implements SmartBridgeView {
     private final JTextField smartLightTextField;
     private final JTextField situationTextField;
     private final JSlider valveOpeningSlider;
+    private final JButton remoteControlButton;
     private final JLabel valveLabel;
     private final JLabel programState;
     private SmartBridgeController controller;
@@ -71,13 +73,18 @@ public class SwingGui extends JFrame implements SmartBridgeView {
         valveOpeningSlider = new JSlider(0, 180, 0);
         c.gridx = 1;
         pane.add(valveOpeningSlider, c);
+        // Button to set remote control
+        remoteControlButton = new JButton("Activate Remote control");
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 0;
+        c.gridy = 4;
+        pane.add(remoteControlButton, c);
 
         // Temporal trend of water level
         waterDataSet = dataSet;
-        //waterDataSet.addSeries(waterLevelData);
         JFreeChart chart = ChartFactory.createXYLineChart(
                 "Water trend",
-                "readings",
+                "time(s)",
                 "water level",
                 waterDataSet,
                 PlotOrientation.VERTICAL,
@@ -88,16 +95,14 @@ public class SwingGui extends JFrame implements SmartBridgeView {
 
         ChartPanel waterLevel = new ChartPanel(chart);
         waterLevel.setPreferredSize(new Dimension(400, 200));
-        //JTextArea trendTextArea = new JTextArea(10, 20);
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridwidth = 3;
         
         c.gridx = 0;
-        c.gridy = 4;
+        c.gridy = 5;
         pane.add(waterLevel, c);
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        //frame.pack();
     }
 
     @Override
@@ -112,14 +117,19 @@ public class SwingGui extends JFrame implements SmartBridgeView {
 
     @Override
     public void showValveController() {
+        if (!remoteControlButton.isVisible()) {
+            setRemoteControl(false);
+        }
         valveLabel.setVisible(true);
         valveOpeningSlider.setVisible(true);
+        remoteControlButton.setVisible(true);
     }
 
     @Override
     public void hideValveController() {
         valveLabel.setVisible(false);
         valveOpeningSlider.setVisible(false);
+        remoteControlButton.setVisible(false);
     }
 
     @Override
@@ -137,11 +147,29 @@ public class SwingGui extends JFrame implements SmartBridgeView {
                 this.controller.setValveOpening(slider.getValue());
             }
         });
+        // Add listener to the button
+        remoteControlButton.addActionListener(e -> {
+            setRemoteControl(remoteControlButton.getText() == "Activate Remote control");
+        });
     }
 
     @Override
     public void setProgramState(final String state) {
         programState.setText(state);
+    }
+
+    @Override
+    public void setRemoteControl(boolean state) {
+        if (state) {
+            this.controller.setValveOpening(-1);
+            remoteControlButton.setText("Deactivate Remote control");
+            valveOpeningSlider.setEnabled(true);
+        } else {
+            this.controller.setValveOpening(-2);
+            remoteControlButton.setText("Activate Remote control");
+            valveOpeningSlider.setValue(0);
+            valveOpeningSlider.setEnabled(false);
+        }
     }
 
 }

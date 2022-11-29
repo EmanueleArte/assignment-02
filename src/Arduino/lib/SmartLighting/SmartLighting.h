@@ -4,7 +4,7 @@
 #include "Task.h"
 #include "Led.h"
 #include "Pir.h"
-#include "LightSensor.h"
+#include "Sensor.h"
 #include "MsgService.h"
 
 class SmartLighting : public Task {
@@ -16,8 +16,7 @@ public:
 private:
   Led* ledA;
   Pir* p;
-  LightSensor* ls;
-  MsgServiceClass* msgService;
+  Sensor* ls;
   void routine();
   void deactivationRoutine();
 

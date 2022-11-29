@@ -43,4 +43,12 @@ public interface SmartBridgeController {
      * @param state the program state
      */
     void setProgramState(String state);
+
+    /**
+     * Set on or off the remote control.
+     * 
+     * @param state if on the remote control is activated else it is deactivated
+     */
+    void setRemoteControl(boolean state);
+    
 }

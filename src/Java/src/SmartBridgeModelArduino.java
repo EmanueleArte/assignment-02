@@ -62,8 +62,15 @@ public class SmartBridgeModelArduino implements SmartBridgeModel {
 
     @Override
     public void setValveOpening(final int opening) {
-        valve = opening;
-        channel.sendMsg(String.valueOf(valve));
+        if (valve != opening) {
+            valve = opening;
+            channel.sendMsg(String.valueOf(valve));
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private void serialConnect() {
@@ -137,6 +144,9 @@ public class SmartBridgeModelArduino implements SmartBridgeModel {
             case "Alarm":
                 situation = ALARM;
                 break;
+            case "RemoteControl-off":
+                controller.setRemoteControl(false);
+                break;
             default:
                 addWaterData(msg);
                 break;
@@ -150,9 +160,19 @@ public class SmartBridgeModelArduino implements SmartBridgeModel {
      * @param msg the water data received from the Arduino
      */
     private void addWaterData(final String msg) {
-        System.out.println("Water level: " + msg);
         if (msg.matches("[0-9]+")) {
             waterLevelData.add(dataIndex++, MAX_WATER_LEVEL - Double.parseDouble(msg));
+        }
+    }
+
+    @Override
+    public void setRemoteControl(boolean state) {
+        if (state) {
+            // Remote control on
+            channel.sendMsg("-1");
+        } else {
+            // Remote control off
+            channel.sendMsg("-2");
         }
     }
     

@@ -1,5 +1,6 @@
 #include "SmartLighting.h"
 #include <Arduino.h>
+#include "LightSensor.h"
 
 #define PIR_PIN 7
 #define LIGHT_SENSOR_PIN A3
@@ -20,7 +21,7 @@ SmartLighting::SmartLighting() {
 
 void SmartLighting::init(int period) {
   Task::init(period);
-  msgService = new MsgServiceClass();
+  MsgService.init();
 }
 
 void SmartLighting::tick() {
@@ -33,16 +34,16 @@ void SmartLighting::routine() {
   }
   if(ls->check() || t1check()) {
     ledA->switchOff();
-    msgService->sendMsg("SmartLight-off");
+    MsgService.sendMsg("SmartLight-off");
   } else {
     ledA->switchOn();
-    msgService->sendMsg("SmartLight-on");
+    MsgService.sendMsg("SmartLight-on");
   }
 }
 
 void SmartLighting::deactivationRoutine() {
   ledA->switchOff();
-  msgService->sendMsg("SmartLight-off");
+  MsgService.sendMsg("SmartLight-off");
 }
 
 // returns true if the timer was never started or if T1 has elapsed

@@ -7,6 +7,7 @@ class Pir : public Sensor {
 public:
   Pir(int pin);
   bool check();
+  int getData();
 
 private:
   int pin;

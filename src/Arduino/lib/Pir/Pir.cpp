@@ -9,3 +9,7 @@ Pir::Pir(int pin) {
 bool Pir::check() {
   return digitalRead(pin);
 }
+
+int Pir::getData() {
+  return digitalRead(pin);
+}

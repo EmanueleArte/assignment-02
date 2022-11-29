@@ -5,12 +5,12 @@
 #include <Ultrasonic.h>
 #include "Sensor.h"
 
-class Sonar {
+class Sonar : public Sensor {
  
 public: 
   Sonar(int pin1, int pin2);
-  void check();
-  int getWaterLevel();
+  bool check();
+  int getData();
 
 private:
   Ultrasonic* sonar;
