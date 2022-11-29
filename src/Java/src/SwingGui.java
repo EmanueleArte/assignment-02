@@ -97,7 +97,6 @@ public class SwingGui extends JFrame implements SmartBridgeView {
         waterLevel.setPreferredSize(new Dimension(600, 400));
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridwidth = 3;
-        
         c.gridx = 0;
         c.gridy = 5;
         pane.add(waterLevel, c);
