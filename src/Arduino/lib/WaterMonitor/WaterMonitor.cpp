@@ -34,6 +34,7 @@ WaterMonitor::WaterMonitor(Sensor* s) {
   b = new Button(BUTTON_PIN);
   lcd = new Lcd();
   manualMode = false;
+  remoteManualMode = false;
   state = NONE;
   lcd->init();
 }
@@ -107,15 +108,16 @@ void WaterMonitor::alarmState() {
   lcd->print(getWaterLevel(s), 1, 13);
   manualModeManager();
   if (!manualMode && !remoteManualMode) {
-    m->setValveDegrees(map(s->getData(), WLMAX, WL2, MAX_DEGREES, MIN_DEGREES));
+    degrees = map(s->getData(), WLMAX, WL2, MAX_DEGREES, MIN_DEGREES);
+    //m->setValveDegrees(map(s->getData(), WLMAX, WL2, MAX_DEGREES, MIN_DEGREES));
   } else {
     if (manualMode) {
       degrees = map(pot->getValveDegrees(), 0, 1023, MAX_DEGREES, MIN_DEGREES);
     } else {
       degrees = atoi(degreesBuffer);
     }
-    m->setValveDegrees(degrees);
   }
+  m->setValveDegrees(degrees);
   lcd->print(getValveDegrees(m), 2, 15);
 }
 
